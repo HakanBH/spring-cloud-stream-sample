@@ -1,10 +1,14 @@
 # Getting Started
 This is a sample Spring Cloud Stream project, which integrates with Kafka, RabbitMQ, Google PubSub & Azure Event Hubs.
 
-## Setting the default binder.
+## TODO:
+1. Add samples with dynamic binder resolution for both sink & source flow
+2. README.md imrovements:
+- document more binder/binding configuration options;  
+- document how to configure partitioning, consumer groups & DLQ
+- Add reference documentation for setting up cloud services (Google PubSub & Azure Event Hubs)
 
-
-## Running with local Kafka
+## Running with Kafka binder
 1. Set the `spring.cloud.stream.defaultBinder` property in application yaml to `kafka-1` to set Kafka as the default binder. 
 
 2. Configure Kafka connection
@@ -28,7 +32,7 @@ The application is configured to connect to a local Kafka by default, so no need
                 sasl.mechanism: PLAIN
 ```
 
-## Running with RabbitMQ
+## Running with RabbitMQ binder
 1. Set the `spring.cloud.stream.defaultBinder` property in application yaml to `rabbitmq-1` to set RabbitMQ as the default binder. 
 
 2. Configure RabbitMQ
@@ -59,10 +63,10 @@ The application is configured to connect to a local RabbitMQ by default, so no n
 - Provide values for the GCP_PROJECT_ID, GCP_CREDENTIALS_FILE_LOCATION environment variables.
 
 
-## Running with Azure EventHubs
-1. Set the `spring.cloud.stream.defaultBinder` property in application yaml to `eventhub-1` to set EventHubs as the default binder. 
+## Running with Azure Event Hubs
+1. Set the `spring.cloud.stream.defaultBinder` property in application yaml to `eventhub-1` to set Event Hubs as the default binder. 
 
-2. Configure EventHubs connection details. To do that, you can either:
+2. Configure Event Hubs connection details. To do that, you can either:
  - Provide values for the EVENTHUB_CONNECTION_STRING, EVENTHUB_STORAGE_ACCOUNT, EVENTHUB_STORAGE_ACCOUNT environment variables.
  - Hardcode the configurations in `application.yaml` under `spring.cloud.stream.binders.eventhub-1` node.
 ```yaml
