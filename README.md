@@ -4,9 +4,10 @@ This is a sample Spring Cloud Stream project, which integrates with Kafka, Rabbi
 ## TODO:
 1. Add samples with dynamic binder resolution for both sink & source flow
 2. README.md imrovements:
-- document more binder/binding configuration options;  
-- document how to configure partitioning, consumer groups & DLQ
-- Add reference documentation for setting up cloud services (Google PubSub & Azure Event Hubs)
+- Document how to run service in multi-binder mode (using multiple binders at the same time).
+- Document how to configure partitioning, consumer groups & DLQ.
+- Add reference to documentation for all supported binder/binding configuration properties. 
+- Add reference to documentation for setting up cloud services (Google PubSub & Azure Event Hubs)
 
 ## Running with Kafka binder
 1. Set the `spring.cloud.stream.defaultBinder` property in application yaml to `kafka-1` to set Kafka as the default binder. 
