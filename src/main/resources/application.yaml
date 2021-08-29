@@ -1,0 +1,64 @@
+spring:
+  cloud:
+    stream:
+      defaultBinder: kafka-1 # Specifies the binder (message broker) to use by default.
+      function:
+        definition: publish;receive
+      bindings:
+        # Simple producer, which emits a message every second:
+        publish-out-0:
+          enabled: true
+          destination: scs-sample-topic
+          # binder: rabbitmq-1 # The binder specified here overrides the spring.cloud.stream.defaultBinder configuration.
+        # Simple consumer, which logs the received messages:
+        receive-in-0:
+          enabled: true
+          destination: scs-sample-topic
+          # binder: rabbitmq-1
+          group: test-consumer-group
+        # Processor (both a consumer and producer)
+#        process-in-0:
+#          destination: dataIn
+#          binder: kafka-1
+#        process-out-0:
+#          destination: dataOut
+#          binder: kafka-1
+      binders:
+        ### Kafka Binders ###
+        kafka-1:
+          type: kafka
+          environment:
+            spring.cloud.stream.kafka.binder:
+              replicationFactor: 1
+              brokers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+              jaas.options.username: ${KAFKA_USERNAME}
+              jaas.options.password: ${KAFKA_PASSWORD}
+              jaas.loginModule: org.apache.kafka.common.security.plain.PlainLoginModule
+              configuration:
+                key.serializer: org.apache.kafka.common.serialization.StringSerializer
+                security.protocol: ${KAFKA_SECURITY_PROTOCOL:PLAINTEXT}
+                sasl.mechanism: PLAIN
+        ### RabbitMQ Binder ###
+        rabbitmq-1:
+          type: rabbit
+          environment:
+            spring.rabbitmq:
+              host: localhost
+              port: 5672
+              username: guest
+              password: guest
+              virtual-host: /
+        ### Google PubSub Binder ###
+        pubsub-1:
+          type: pubsub
+        ### Azure EventHubs Binder ###
+        eventhub-1:
+          type: eventhub
+          environment:
+            spring.cloud.azure.eventhub:
+              connection-string: ${EVENTHUB_CONNECTION_STRING}
+              checkpoint-storage-account: ${EVENTHUB_STORAGE_ACCOUNT}
+              checkpoint-access-key: ${EVENTHUB_STORAGE_ACCOUNT}
+#    gcp:
+#      project-id: ${GCP_PROJECT_ID}
+#      credentials.location: ${GCP_CREDENTIALS_FILE_LOCATION}
